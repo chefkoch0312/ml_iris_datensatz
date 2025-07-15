@@ -8,7 +8,7 @@ Python 3.10.x vorausgesetzt...
 
 git clone https://github.com/chefkoch0312/ml_iris_datensatz.git
 
-pip install -r requitements.txt
+pip install -r requirements.txt
 
 ## **▶️ Verwendung**
 
