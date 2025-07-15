@@ -48,11 +48,25 @@ class IrisApp(QWidget):
 
     def make_prediction(self):
         try:
-            features = [float(inp.text()) for inp in self.inputs]
+            # Eingabewerte prüfen
+            features = []
+            for inp in self.inputs:
+                value = inp.text().strip()
+                if not value:
+                    raise ValueError("Ein oder mehrere Felder sind leer.")
+                num = float(value)
+                if num < 0 or num > 10:
+                    raise ValueError("Wert außerhalb des gültigen Bereichs (0–10).")
+                features.append(num)
+
             result = predict_flower(features)
             self.result_label.setText(f"Vorhersage: {result}")
-        except ValueError:
-            QMessageBox.warning(self, "Fehler", "Bitte vier gültige numerische Werte eingeben.")
+            self.result_label.setStyleSheet("color: green; font-weight: bold;")
+        
+        except ValueError as e:
+            QMessageBox.warning(self, "Ungültige Eingabe", str(e))
+            self.result_label.setText("Vorhersage: –")
+            self.result_label.setStyleSheet("color: red; font-weight: bold;")
 
     def train_model(self):
         df = load_iris_data()         
