@@ -1,7 +1,7 @@
 # src/load_data.py
 
 import pandas as pd
-from skLearn.datasets import load_iris
+from sklearn.datasets import load_iris
 
 def load_iris_data():
     iris = load_iris()
