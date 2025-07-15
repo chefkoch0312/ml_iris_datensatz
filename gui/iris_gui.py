@@ -40,9 +40,13 @@ class IrisApp(QWidget):
         self.predict_btn.clicked.connect(self.make_prediction)
         self.train_btn.clicked.connect(self.train_model)
 
+        self.reset_btn = QPushButton("Eingaben zurücksetzen")
+        self.reset_btn.clicked.connect(self.reset_inputs)
+
         layout.addLayout(form_layout)
         layout.addWidget(self.predict_btn)
         layout.addWidget(self.train_btn)
+        layout.addWidget(self.reset_btn)
         layout.addWidget(self.result_label)
         self.setLayout(layout)
 
@@ -74,6 +78,12 @@ class IrisApp(QWidget):
         model = train_model(df)       
         save_model(model)             
         QMessageBox.information(self, "Erfolg", "Modell wurde neu trainiert und gespeichert.")
+
+    def reset_inputs(self):
+        for inp in self.inputs:
+            inp.clear()
+        self.result_label.setText("Vorhersage: (noch keine)")
+        self.result_label.setStyleSheet("color: black;")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
