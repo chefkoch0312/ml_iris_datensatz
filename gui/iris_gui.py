@@ -43,11 +43,15 @@ class IrisApp(QWidget):
         self.reset_btn = QPushButton("Eingaben zurücksetzen")
         self.reset_btn.clicked.connect(self.reset_inputs)
 
+        self.status_label = QLabel("Bereit.")
+        self.status_label.setStyleSheet("color: gray; font-style: italic;")
+
         layout.addLayout(form_layout)
         layout.addWidget(self.predict_btn)
         layout.addWidget(self.train_btn)
         layout.addWidget(self.reset_btn)
         layout.addWidget(self.result_label)
+        layout.addWidget(self.status_label)
         self.setLayout(layout)
 
     def make_prediction(self):
@@ -66,24 +70,35 @@ class IrisApp(QWidget):
             result = predict_flower(features)
             self.result_label.setText(f"Vorhersage: {result}")
             self.result_label.setStyleSheet("color: green; font-weight: bold;")
+            self.update_status("Vorhersage erfolgreich durchgeführt.", "green")
         
         except ValueError as e:
-            QMessageBox.warning(self, "Ungültige Eingabe", str(e))
+            # QMessageBox.warning(self, "Ungültige Eingabe", str(e))
             self.result_label.setText("Vorhersage: –")
             self.result_label.setStyleSheet("color: red; font-weight: bold;")
+            # self.status_label.setText("Fehler bei der Eingabe – Vorhersage abgebrochen.")
+            self.update_status("Ungültige Eingabe – bitte vier Zahlen zwischen 0 und 10.", "red")
+
 
     def train_model(self):
         df = load_iris_data()         
         df = add_label_column(df)     
         model = train_model(df)       
         save_model(model)             
-        QMessageBox.information(self, "Erfolg", "Modell wurde neu trainiert und gespeichert.")
+        # QMessageBox.information(self, "Erfolg", "Modell wurde neu trainiert und gespeichert.")
+        self.status_label.setText("Modelltraining abgeschlossen und gespeichert.")
+        self.update_status("Modelltraining erfolgreich.", "green")
+
+    def update_status(self, text: str, color: str = "gray"):
+        self.status_label.setText(text)
+        self.status_label.setStyleSheet(f"color: {color}; font-style: italic;")
 
     def reset_inputs(self):
         for inp in self.inputs:
             inp.clear()
         self.result_label.setText("Vorhersage: (noch keine)")
         self.result_label.setStyleSheet("color: black;")
+        self.status_label.setText("Eingaben zurückgesetzt.")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
