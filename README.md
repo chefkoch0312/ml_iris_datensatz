@@ -18,6 +18,8 @@ python .\src\model.py
 
 python .\src\evaluate.py
 
+python .\src\predict.py
+
 ## **👤 Autor**
 
 **Kai ([@chefkoch0312](https://github.com/chefkoch0312))**
