@@ -22,6 +22,8 @@ python .\src\evaluate.py
 
 python .\src\predict.py
 
+**Mit GUI:** python .\gui\iris_gui.py 
+
 ## **👤 Autor**
 
 **Kai ([@chefkoch0312](https://github.com/chefkoch0312))**
