@@ -56,7 +56,6 @@ class IrisApp(QWidget):
 
     def make_prediction(self):
         try:
-            # Eingabewerte prüfen
             features = []
             for inp in self.inputs:
                 value = inp.text().strip()
@@ -73,19 +72,15 @@ class IrisApp(QWidget):
             self.update_status("Vorhersage erfolgreich durchgeführt.", "green")
         
         except ValueError as e:
-            # QMessageBox.warning(self, "Ungültige Eingabe", str(e))
             self.result_label.setText("Vorhersage: –")
             self.result_label.setStyleSheet("color: red; font-weight: bold;")
-            # self.status_label.setText("Fehler bei der Eingabe – Vorhersage abgebrochen.")
             self.update_status("Ungültige Eingabe – bitte vier Zahlen zwischen 0 und 10.", "red")
-
 
     def train_model(self):
         df = load_iris_data()         
         df = add_label_column(df)     
         model = train_model(df)       
         save_model(model)             
-        # QMessageBox.information(self, "Erfolg", "Modell wurde neu trainiert und gespeichert.")
         self.status_label.setText("Modelltraining abgeschlossen und gespeichert.")
         self.update_status("Modelltraining erfolgreich.", "green")
 
