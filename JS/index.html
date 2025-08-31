@@ -216,7 +216,7 @@
 
             const log = (s) => { logEl.textContent += (logEl.textContent ? '\n' : '') + s; };
 
-                const csvToArrays = (csvText) => {
+            const csvToArrays = (csvText) => {
                 const lines = csvText.trim().split(/\r?\n/);
                 const header = lines.shift().split(',');
                 const speciesIdx = header.indexOf('species');
