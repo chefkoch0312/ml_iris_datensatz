@@ -24,6 +24,8 @@ python .\src\predict.py
 
 **Mit GUI:** python .\gui\iris_gui.py 
 
+**JavaScript:** [JS-Basierte Variante mit tensorflow - Online-Demo](https://kado-ber.de/ml_iris_datensatz/js)
+
 ## **👤 Autor**
 
 **Kai ([@chefkoch0312](https://github.com/chefkoch0312))**
